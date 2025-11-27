@@ -213,40 +213,48 @@ export const Forum: React.FC<ForumProps> = ({ user }) => {
       )}
 
       <div className="space-y-4">
-        {topics.map(topic => (
-          <div
-            key={topic.id}
-            onClick={() => setSelectedTopic(topic)}
-            className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all cursor-pointer group"
-          >
-            <div className="flex justify-between items-start">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-600">
-                    {topic.category}
-                  </span>
-                  <span className="text-xs text-gray-400">• {topic.date}</span>
-                  {topic.role === 'teacher' && (
-                    <span className="text-xs bg-purple-100 text-purple-600 px-1.5 py-0.5 rounded">
-                      教师发布
+        {topics.length > 0 ? (
+          topics.map(topic => (
+            <div
+              key={topic.id}
+              onClick={() => setSelectedTopic(topic)}
+              className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all cursor-pointer group"
+            >
+              <div className="flex justify-between items-start">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-600">
+                      {topic.category}
                     </span>
-                  )}
+                    <span className="text-xs text-gray-400">• {topic.date}</span>
+                    {topic.role === 'teacher' && (
+                      <span className="text-xs bg-purple-100 text-purple-600 px-1.5 py-0.5 rounded">
+                        教师发布
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
+                    {topic.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm mt-1 line-clamp-2">{topic.content}</p>
+                  <div className="flex items-center gap-2 mt-3 text-xs text-gray-400">
+                    <UserIcon className="h-3 w-3" /> {topic.author}
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
-                  {topic.title}
-                </h3>
-                <p className="text-gray-500 text-sm mt-1 line-clamp-2">{topic.content}</p>
-                <div className="flex items-center gap-2 mt-3 text-xs text-gray-400">
-                  <UserIcon className="h-3 w-3" /> {topic.author}
+                <div className="flex flex-col items-center justify-center pl-4 border-l border-gray-100 h-full">
+                   <MessageSquare className="h-5 w-5 text-gray-300 group-hover:text-primary-500 transition-colors" />
+                   <span className="text-sm font-medium text-gray-600 mt-1">{topic.replies.length}</span>
                 </div>
-              </div>
-              <div className="flex flex-col items-center justify-center pl-4 border-l border-gray-100 h-full">
-                 <MessageSquare className="h-5 w-5 text-gray-300 group-hover:text-primary-500 transition-colors" />
-                 <span className="text-sm font-medium text-gray-600 mt-1">{topic.replies.length}</span>
               </div>
             </div>
+          ))
+        ) : (
+          <div className="text-center py-12 bg-white rounded-xl border border-dashed border-gray-200">
+            <MessageSquare className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+            <h3 className="text-lg font-medium text-gray-900">暂无讨论</h3>
+            <p className="text-gray-500">还没有人发帖，来做第一个发言的人吧！</p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

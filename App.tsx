@@ -5,8 +5,6 @@ import { ResourceList } from './components/ResourceList';
 import { AIChat } from './components/AIChat';
 import { Login } from './components/Login';
 import { Forum } from './components/Forum';
-import { MOCK_POSTS } from './constants';
-import { Calendar, ChevronRight } from 'lucide-react';
 import { User } from './types';
 
 const App: React.FC = () => {
@@ -35,7 +33,7 @@ const App: React.FC = () => {
                   欢迎来到 24数媒1班
                 </h1>
                 <p className="text-xl text-gray-200 max-w-2xl mb-8">
-                  团结、创新、卓越 —— 我们的数字媒体之旅
+                  自主、开放、共享 —— 信息科学学院学生共建平台
                 </p>
                 <div className="flex gap-4">
                   <button 
@@ -51,39 +49,6 @@ const App: React.FC = () => {
                     进入班级论坛
                   </button>
                 </div>
-              </div>
-            </div>
-
-            {/* Latest News */}
-            <div className="max-w-5xl mx-auto px-4">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                  <span className="w-2 h-8 bg-primary-500 rounded-full"></span>
-                  班级公告
-                </h2>
-                <button className="text-primary-600 font-medium hover:text-primary-700 flex items-center gap-1 text-sm">
-                  查看全部 <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
-
-              <div className="grid gap-8 md:grid-cols-1">
-                {MOCK_POSTS.map(post => (
-                  <div key={post.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row h-full">
-                    <div className="md:w-1/3 h-48 md:h-auto overflow-hidden">
-                      <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col justify-center">
-                      <div className="flex items-center gap-2 text-sm text-gray-400 mb-3">
-                        <Calendar className="h-4 w-4" />
-                        <span>{post.date}</span>
-                        <span>•</span>
-                        <span className="text-primary-600 font-medium bg-primary-50 px-2 py-0.5 rounded-full">{post.author}</span>
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">{post.title}</h3>
-                      <p className="text-gray-500 mb-4 flex-1">{post.content}</p>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </div>

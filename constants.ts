@@ -2,7 +2,7 @@ import { Resource, ResourceType, BlogPost, ForumTopic } from './types';
 
 export const CLASS_NAME = "24数媒1班";
 export const WECHAT_ID = "class24_digitalmedia_1";
-export const SCHOOL_NAME = "数字媒体学院";
+export const SCHOOL_NAME = "信息科学学院";
 
 export const CATEGORIES = ['全部', '数据结构', '数学', '信号与系统', '数据库', '其他'];
 
@@ -53,45 +53,6 @@ export const MOCK_RESOURCES: Resource[] = [
   }
 ];
 
-export const MOCK_POSTS: BlogPost[] = [
-  {
-    id: '1',
-    title: '欢迎来到24数媒1班班级主页',
-    excerpt: '这是我们需要共享资料和交流的地方。',
-    content: '欢迎各位同学！这里是我们的班级线上大本营。你可以在这里找到所有核心课程的学习资料，包括《数据结构》、《概率论与数理统计》、《信号与系统分析基础》以及《数据库原理及应用教程》。请大家踊跃使用论坛功能进行学术讨论。',
-    date: '2023-09-01',
-    author: '辅导员',
-    imageUrl: 'https://picsum.photos/seed/welcome/800/400'
-  }
-];
+export const MOCK_POSTS: BlogPost[] = [];
 
-export const MOCK_FORUM_TOPICS: ForumTopic[] = [
-  {
-    id: '1',
-    title: '关于数据结构大作业的组队问题',
-    content: '请问大家大作业是3人一组还是4人一组？',
-    author: '张三',
-    date: '2023-10-26',
-    role: 'student',
-    category: '数据结构',
-    replies: [
-      {
-        id: 'r1',
-        author: '李老师',
-        content: '原则上不超过3人。',
-        date: '2023-10-26 14:00',
-        role: 'teacher'
-      }
-    ]
-  },
-  {
-    id: '2',
-    title: '概率论第三章习题讨论',
-    content: '课后习题第5题大家算出来答案是多少？我算的是0.5。',
-    author: '李四',
-    date: '2023-10-27',
-    role: 'student',
-    category: '数学',
-    replies: []
-  }
-];
+export const MOCK_FORUM_TOPICS: ForumTopic[] = [];
