@@ -8,7 +8,7 @@ export const WeChatCard: React.FC = () => {
       <div className="bg-wechat p-12 flex items-center justify-center">
         <div className="bg-white p-2 rounded-2xl shadow-lg w-56 h-56 flex-shrink-0 flex items-center justify-center">
           <img 
-            src="photo/gzh-.jpg" 
+            src="/gzh.jpg" 
             alt="公众号二维码" 
             className="w-full h-full object-contain rounded-xl"
             onError={(e) => {
@@ -24,9 +24,8 @@ export const WeChatCard: React.FC = () => {
                   <div class="text-xs text-left bg-gray-50 p-2 rounded border border-gray-200 w-full">
                     <p class="font-semibold text-gray-700">请检查:</p>
                     <ol class="list-decimal pl-4 mt-1 space-y-1 text-gray-600">
-                      <li>文件夹名为 <b>photo</b></li>
-                      <li>文件名为 <b>gzh-.jpg</b> (注意减号)</li>
-                      <li>文件在 <b>public</b> 文件夹内</li>
+                      <li>文件名为 <b>gzh.jpg</b></li>
+                      <li>文件与 <b>index.html</b> 同级</li>
                     </ol>
                   </div>
                 </div>`;
