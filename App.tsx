@@ -2,19 +2,12 @@ import React, { useState } from 'react';
 import { Header, Footer } from './components/Layout';
 import { WeChatCard } from './components/WeChatCard';
 import { ResourceList } from './components/ResourceList';
-import { AIChat } from './components/AIChat';
-import { Login } from './components/Login';
 import { Forum } from './components/Forum';
-import { User } from './types';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('home');
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
 
-  if (!user) {
-    return <Login onLogin={setUser} />;
-  }
+  // Login logic removed, app is now open to all
 
   const renderContent = () => {
     switch (activeTab) {
@@ -24,13 +17,13 @@ const App: React.FC = () => {
             {/* Hero Section */}
             <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gray-900 h-96">
               <img 
-                src="https://picsum.photos/seed/college/1200/600" 
+                src="https://picsum.photos/seed/tech/1200/600" 
                 alt="Classroom" 
                 className="w-full h-full object-cover opacity-60 hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-6 bg-gradient-to-t from-gray-900/80 to-transparent">
                 <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
-                  欢迎来到 24数媒1班
+                  欢迎来到 数字媒体技术2班
                 </h1>
                 <p className="text-xl text-gray-200 max-w-2xl mb-8">
                   自主、开放、共享 —— 信息科学学院学生共建平台
@@ -59,21 +52,21 @@ const App: React.FC = () => {
           <div className="max-w-5xl mx-auto px-4 animate-fade-in">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-gray-900 mb-2">学习资料库</h2>
-              <p className="text-gray-500">下载课件、试卷和参考资料。</p>
+              <p className="text-gray-500">精选网络课程、视频教程与参考文档。</p>
             </div>
-            <ResourceList user={user} />
+            <ResourceList />
           </div>
         );
 
       case 'forum':
-        return <Forum user={user} />;
+        return <Forum />;
 
       case 'wechat':
         return (
           <div className="max-w-4xl mx-auto px-4 py-12 animate-fade-in">
              <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-gray-900 mb-2">保持连接</h2>
-              <p className="text-gray-500">加入我们的微信公众号获取最新通知。</p>
+              <p className="text-gray-500">关注我们的微信公众号获取最新通知。</p>
             </div>
             <WeChatCard />
             <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
@@ -106,10 +99,6 @@ const App: React.FC = () => {
       <Header 
         activeTab={activeTab} 
         setActiveTab={setActiveTab}
-        isChatOpen={isChatOpen}
-        setIsChatOpen={setIsChatOpen}
-        user={user}
-        onLogout={() => setUser(null)}
       />
       
       <main className="flex-grow py-8 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -117,8 +106,6 @@ const App: React.FC = () => {
       </main>
 
       <Footer />
-
-      <AIChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 };

@@ -1,30 +1,35 @@
 import React, { useState } from 'react';
-import { User, ForumTopic, ForumReply } from '../types';
+import { ForumTopic, ForumReply } from '../types';
 import { MOCK_FORUM_TOPICS, CATEGORIES } from '../constants';
-import { MessageSquare, User as UserIcon, Plus, Send, Clock, Tag } from 'lucide-react';
+import { MessageSquare, User as UserIcon, Plus, Send, Clock } from 'lucide-react';
 
-interface ForumProps {
-  user: User;
-}
-
-export const Forum: React.FC<ForumProps> = ({ user }) => {
+export const Forum: React.FC = () => {
   const [topics, setTopics] = useState<ForumTopic[]>(MOCK_FORUM_TOPICS);
   const [selectedTopic, setSelectedTopic] = useState<ForumTopic | null>(null);
+  
+  // New Topic State
   const [newTopicTitle, setNewTopicTitle] = useState('');
   const [newTopicContent, setNewTopicContent] = useState('');
-  const [newTopicCategory, setNewTopicCategory] = useState(CATEGORIES[1]); // Default to first actual category
+  const [newTopicCategory, setNewTopicCategory] = useState(CATEGORIES[1]);
+  const [newTopicAuthor, setNewTopicAuthor] = useState('');
+  
+  // Reply State
   const [replyContent, setReplyContent] = useState('');
+  const [replyAuthor, setReplyAuthor] = useState('');
+  
   const [isCreating, setIsCreating] = useState(false);
 
   const handleCreateTopic = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!newTopicTitle.trim() || !newTopicContent.trim() || !newTopicAuthor.trim()) return;
+
     const topic: ForumTopic = {
       id: Date.now().toString(),
       title: newTopicTitle,
       content: newTopicContent,
-      author: user.name,
+      author: newTopicAuthor,
       date: new Date().toISOString().split('T')[0],
-      role: user.role,
+      role: 'student',
       category: newTopicCategory,
       replies: []
     };
@@ -32,18 +37,19 @@ export const Forum: React.FC<ForumProps> = ({ user }) => {
     setIsCreating(false);
     setNewTopicTitle('');
     setNewTopicContent('');
+    setNewTopicAuthor('');
   };
 
   const handleReply = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedTopic || !replyContent.trim()) return;
+    if (!selectedTopic || !replyContent.trim() || !replyAuthor.trim()) return;
 
     const reply: ForumReply = {
       id: Date.now().toString(),
-      author: user.name,
+      author: replyAuthor,
       content: replyContent,
       date: new Date().toLocaleString(),
-      role: user.role
+      role: 'student'
     };
 
     const updatedTopics = topics.map(t => {
@@ -56,6 +62,7 @@ export const Forum: React.FC<ForumProps> = ({ user }) => {
     setTopics(updatedTopics);
     setSelectedTopic({ ...selectedTopic, replies: [...selectedTopic.replies, reply] });
     setReplyContent('');
+    // Optionally keep author name for easier multiple replies
   };
 
   if (selectedTopic) {
@@ -80,13 +87,12 @@ export const Forum: React.FC<ForumProps> = ({ user }) => {
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-4">{selectedTopic.title}</h1>
             <div className="flex items-center gap-3 mb-6">
-              <div className={`h-10 w-10 rounded-full flex items-center justify-center ${selectedTopic.role === 'teacher' ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-600'}`}>
+              <div className="h-10 w-10 rounded-full flex items-center justify-center bg-gray-100 text-gray-600">
                 <UserIcon className="h-6 w-6" />
               </div>
               <div>
                 <div className="font-medium text-gray-900 flex items-center gap-2">
                   {selectedTopic.author}
-                  {selectedTopic.role === 'teacher' && <span className="bg-purple-100 text-purple-600 text-[10px] px-1.5 py-0.5 rounded uppercase font-bold">教师</span>}
                 </div>
                 <div className="text-xs text-gray-500">楼主</div>
               </div>
@@ -107,10 +113,9 @@ export const Forum: React.FC<ForumProps> = ({ user }) => {
                   <div key={reply.id} className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <span className={`font-medium ${reply.role === 'teacher' ? 'text-purple-600' : 'text-gray-900'}`}>
+                        <span className="font-medium text-gray-900">
                           {reply.author}
                         </span>
-                        {reply.role === 'teacher' && <span className="bg-purple-100 text-purple-600 text-[10px] px-1.5 py-0.5 rounded uppercase font-bold">教师</span>}
                       </div>
                       <span className="text-xs text-gray-400">{reply.date}</span>
                     </div>
@@ -122,21 +127,31 @@ export const Forum: React.FC<ForumProps> = ({ user }) => {
               )}
             </div>
 
-            <form onSubmit={handleReply} className="flex gap-3">
+            <form onSubmit={handleReply} className="space-y-3">
               <input
-                type="text"
-                value={replyContent}
-                onChange={(e) => setReplyContent(e.target.value)}
-                placeholder="发表你的看法..."
-                className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              />
-              <button
-                type="submit"
-                disabled={!replyContent.trim()}
-                className="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              >
-                <Send className="h-4 w-4" /> 发送
-              </button>
+                  type="text"
+                  required
+                  value={replyAuthor}
+                  onChange={(e) => setReplyAuthor(e.target.value)}
+                  placeholder="你的昵称"
+                  className="w-full md:w-1/3 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
+                />
+              <div className="flex gap-3">
+                <input
+                  type="text"
+                  value={replyContent}
+                  onChange={(e) => setReplyContent(e.target.value)}
+                  placeholder="发表你的看法..."
+                  className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                />
+                <button
+                  type="submit"
+                  disabled={!replyContent.trim() || !replyAuthor.trim()}
+                  className="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  <Send className="h-4 w-4" /> 发送
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -164,7 +179,7 @@ export const Forum: React.FC<ForumProps> = ({ user }) => {
           <h3 className="text-lg font-bold text-gray-900 mb-4">发布新话题</h3>
           <form onSubmit={handleCreateTopic} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-               <div className="md:col-span-3">
+               <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">标题</label>
                   <input
                     type="text"
@@ -173,6 +188,17 @@ export const Forum: React.FC<ForumProps> = ({ user }) => {
                     onChange={(e) => setNewTopicTitle(e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     placeholder="请输入简洁明了的标题"
+                  />
+               </div>
+               <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">昵称</label>
+                  <input
+                    type="text"
+                    required
+                    value={newTopicAuthor}
+                    onChange={(e) => setNewTopicAuthor(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    placeholder="你的名字"
                   />
                </div>
                <div>
@@ -227,11 +253,6 @@ export const Forum: React.FC<ForumProps> = ({ user }) => {
                       {topic.category}
                     </span>
                     <span className="text-xs text-gray-400">• {topic.date}</span>
-                    {topic.role === 'teacher' && (
-                      <span className="text-xs bg-purple-100 text-purple-600 px-1.5 py-0.5 rounded">
-                        教师发布
-                      </span>
-                    )}
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
                     {topic.title}

@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import { FileText, Video, Link as LinkIcon, Download, Search, File, Plus, X } from 'lucide-react';
-import { Resource, ResourceType, User } from '../types';
+import { FileText, Video, Link as LinkIcon, ExternalLink, Search, File } from 'lucide-react';
+import { Resource, ResourceType } from '../types';
 import { MOCK_RESOURCES, CATEGORIES } from '../constants';
-
-interface ResourceListProps {
-  user: User;
-}
 
 const getIconForType = (type: ResourceType) => {
   switch (type) {
@@ -21,17 +17,10 @@ const getIconForType = (type: ResourceType) => {
   }
 };
 
-export const ResourceList: React.FC<ResourceListProps> = ({ user }) => {
-  const [resources, setResources] = useState<Resource[]>(MOCK_RESOURCES);
+export const ResourceList: React.FC = () => {
+  const [resources] = useState<Resource[]>(MOCK_RESOURCES);
   const [selectedCategory, setSelectedCategory] = useState('全部');
   const [searchQuery, setSearchQuery] = useState('');
-  const [isAdding, setIsAdding] = useState(false);
-  
-  // New resource form state
-  const [newTitle, setNewTitle] = useState('');
-  const [newDesc, setNewDesc] = useState('');
-  const [newCategory, setNewCategory] = useState(CATEGORIES[1]);
-  const [newType, setNewType] = useState<ResourceType>(ResourceType.PDF);
 
   const filteredResources = resources.filter(resource => {
     const matchesCategory = selectedCategory === '全部' || resource.category === selectedCategory;
@@ -40,24 +29,8 @@ export const ResourceList: React.FC<ResourceListProps> = ({ user }) => {
     return matchesCategory && matchesSearch;
   });
 
-  const handleAddResource = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newResource: Resource = {
-      id: Date.now().toString(),
-      title: newTitle,
-      description: newDesc,
-      category: newCategory,
-      type: newType,
-      url: '#',
-      date: new Date().toISOString().split('T')[0],
-      size: '1.0 MB',
-      addedBy: user.name
-    };
-    setResources([newResource, ...resources]);
-    setIsAdding(false);
-    // Reset form
-    setNewTitle('');
-    setNewDesc('');
+  const handleVisitLink = (resource: Resource) => {
+    window.open(resource.url, '_blank');
   };
 
   return (
@@ -93,50 +66,6 @@ export const ResourceList: React.FC<ResourceListProps> = ({ user }) => {
         </div>
       </div>
 
-      {user.role === 'teacher' && (
-        <div className="flex justify-end">
-           <button 
-             onClick={() => setIsAdding(!isAdding)}
-             className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors shadow-sm text-sm font-medium"
-           >
-             {isAdding ? <><X className="h-4 w-4" /> 取消</> : <><Plus className="h-4 w-4" /> 上传新资料</>}
-           </button>
-        </div>
-      )}
-
-      {isAdding && (
-        <div className="bg-white p-6 rounded-xl shadow-md border border-green-100 animate-slide-down">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">上传资料 (管理员)</h3>
-          <form onSubmit={handleAddResource} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">标题</label>
-                <input type="text" required value={newTitle} onChange={e => setNewTitle(e.target.value)} className="w-full px-3 py-2 border rounded-lg" placeholder="资料名称" />
-              </div>
-              <div>
-                 <label className="block text-sm font-medium text-gray-700 mb-1">分类</label>
-                 <select value={newCategory} onChange={e => setNewCategory(e.target.value)} className="w-full px-3 py-2 border rounded-lg bg-white">
-                    {CATEGORIES.filter(c => c !== '全部').map(c => <option key={c} value={c}>{c}</option>)}
-                 </select>
-              </div>
-              <div>
-                 <label className="block text-sm font-medium text-gray-700 mb-1">类型</label>
-                 <select value={newType} onChange={e => setNewType(e.target.value as ResourceType)} className="w-full px-3 py-2 border rounded-lg bg-white">
-                    {Object.values(ResourceType).map(t => <option key={t} value={t}>{t}</option>)}
-                 </select>
-              </div>
-               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">描述</label>
-                <input type="text" required value={newDesc} onChange={e => setNewDesc(e.target.value)} className="w-full px-3 py-2 border rounded-lg" placeholder="简短描述" />
-              </div>
-            </div>
-            <div className="flex justify-end pt-2">
-               <button type="submit" className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">确认上传</button>
-            </div>
-          </form>
-        </div>
-      )}
-
       <div className="grid gap-4">
         {filteredResources.length > 0 ? (
           filteredResources.map((resource) => (
@@ -155,13 +84,16 @@ export const ResourceList: React.FC<ResourceListProps> = ({ user }) => {
                   <p className="text-sm text-gray-500 mt-1 line-clamp-2">{resource.description}</p>
                   <div className="flex items-center gap-4 mt-3 text-xs text-gray-400">
                     <span>{resource.date}</span>
-                    {resource.size && <span>• {resource.size}</span>}
                     <span className="uppercase">• {resource.type}</span>
-                    {resource.addedBy && <span>• 上传者: {resource.addedBy}</span>}
+                    {resource.addedBy && <span>• 来源: {resource.addedBy}</span>}
                   </div>
                 </div>
-                <button className="flex-shrink-0 p-2 text-gray-400 hover:text-primary-600 transition-colors">
-                  <Download className="h-5 w-5" />
+                <button 
+                  onClick={() => handleVisitLink(resource)}
+                  className="flex-shrink-0 flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
+                  title="访问链接"
+                >
+                  前往学习 <ExternalLink className="h-4 w-4" />
                 </button>
               </div>
             </div>
