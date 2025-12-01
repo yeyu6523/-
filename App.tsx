@@ -23,7 +23,7 @@ const App: React.FC = () => {
               />
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-6 bg-gradient-to-t from-gray-900/80 to-transparent">
                 <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
-                  欢迎来到 数字媒体技术2班
+                  欢迎来到 数字媒体技术1班
                 </h1>
                 <p className="text-xl text-gray-200 max-w-2xl mb-8">
                   自主、开放、共享 —— 信息科学学院学生共建平台
