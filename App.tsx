@@ -65,7 +65,7 @@ const App: React.FC = () => {
         return (
           <div className="max-w-4xl mx-auto px-4 py-12 animate-fade-in">
              <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">保持连接</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">微信公众号</h2>
               <p className="text-gray-500">关注我们的微信公众号获取最新通知。</p>
             </div>
             <WeChatCard />
