@@ -3,14 +3,14 @@ import { CLASS_NAME } from '../constants';
 
 export const WeChatCard: React.FC = () => {
   return (
-    <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 max-w-sm mx-auto hover:shadow-2xl transition-shadow duration-300">
+    <div className="bg-white rounded-[32px] shadow-2xl overflow-hidden border border-gray-100 max-w-md w-full mx-auto hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] transition-shadow duration-500">
       {/* Green Header Area with QR Code */}
-      <div className="bg-wechat p-12 flex items-center justify-center">
-        <div className="bg-white p-2 rounded-2xl shadow-lg w-56 h-56 flex-shrink-0 flex items-center justify-center">
+      <div className="bg-wechat h-80 flex items-center justify-center relative">
+        <div className="bg-white p-3 rounded-2xl shadow-xl w-56 h-56 flex-shrink-0 flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
           <img 
             src="/gzh.jpg" 
             alt="公众号二维码" 
-            className="w-full h-full object-contain rounded-xl"
+            className="w-full h-full object-contain rounded-lg"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.onerror = null; 
@@ -35,9 +35,9 @@ export const WeChatCard: React.FC = () => {
       </div>
       
       {/* Content Area */}
-      <div className="px-8 py-8 text-center bg-white">
-        <h3 className="text-2xl font-bold text-gray-900 mb-3">{CLASS_NAME} 公众号</h3>
-        <p className="text-gray-500 text-sm leading-relaxed">
+      <div className="px-10 py-10 text-center bg-white">
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">{CLASS_NAME} 公众号</h3>
+        <p className="text-gray-500 text-base leading-relaxed">
           请直接扫描上方图片中的二维码关注。
         </p>
       </div>

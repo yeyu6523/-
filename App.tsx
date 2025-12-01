@@ -63,29 +63,12 @@ const App: React.FC = () => {
 
       case 'wechat':
         return (
-          <div className="max-w-4xl mx-auto px-4 py-12 animate-fade-in">
+          <div className="max-w-4xl mx-auto px-4 py-12 animate-fade-in flex flex-col items-center justify-center min-h-[60vh]">
              <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-gray-900 mb-2">微信公众号</h2>
               <p className="text-gray-500">关注我们的微信公众号获取最新通知。</p>
             </div>
             <WeChatCard />
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600 font-bold text-xl">1</div>
-                <h3 className="font-bold text-gray-900 mb-2">扫描二维码</h3>
-                <p className="text-sm text-gray-500">打开微信扫描上方的二维码。</p>
-              </div>
-              <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600 font-bold text-xl">2</div>
-                <h3 className="font-bold text-gray-900 mb-2">关注我们</h3>
-                <p className="text-sm text-gray-500">点击“关注”以订阅班级更新。</p>
-              </div>
-              <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600 font-bold text-xl">3</div>
-                <h3 className="font-bold text-gray-900 mb-2">接收通知</h3>
-                <p className="text-sm text-gray-500">不再错过任何作业、活动或重要公告。</p>
-              </div>
-            </div>
           </div>
         );
       
