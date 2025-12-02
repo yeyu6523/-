@@ -17,30 +17,7 @@ export interface Resource {
   addedBy?: string;
 }
 
-export interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  author: string;
-  imageUrl?: string;
-}
-
-export interface ChatMessage {
-  id: string;
-  role: 'user' | 'model';
-  text: string;
-  isError?: boolean;
-}
-
 export type UserRole = 'student' | 'teacher';
-
-export interface User {
-  id: string;
-  name: string;
-  role: UserRole;
-}
 
 export interface ForumReply {
   id: string;

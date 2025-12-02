@@ -4,6 +4,7 @@ import { WeChatCard } from './components/WeChatCard';
 import { ResourceList } from './components/ResourceList';
 import { Forum } from './components/Forum';
 import { Calendar, Image as ImageIcon, Heart, Sun } from 'lucide-react';
+import kxImage from './kx.jpg';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -79,15 +80,10 @@ const App: React.FC = () => {
                   <div className="w-full md:w-1/2">
                     <div className="relative rounded-2xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white">
                       <img 
-                        src="/kx.jpg" 
-                        alt="开心的话日子也不算虚度" 
-                        className="w-full h-auto object-cover"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          target.parentElement!.innerHTML = `<div class="bg-gray-100 h-64 flex items-center justify-center text-gray-400">kx.jpg 未找到</div>`;
-                        }}
-                      />
+                    src={kxImage} 
+                    alt="开心的话日子也不算虚度" 
+                    className="w-full h-auto object-cover"
+                  />
                     </div>
                   </div>
                   

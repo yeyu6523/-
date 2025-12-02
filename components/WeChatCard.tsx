@@ -1,5 +1,6 @@
 import React from 'react';
 import { CLASS_NAME } from '../constants';
+import gzhImage from '../gzh.jpg';
 
 export const WeChatCard: React.FC = () => {
   return (
@@ -8,28 +9,9 @@ export const WeChatCard: React.FC = () => {
       <div className="bg-wechat h-80 flex items-center justify-center relative">
         <div className="bg-white p-3 rounded-2xl shadow-xl w-56 h-56 flex-shrink-0 flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
           <img 
-            src="/gzh.jpg" 
+            src={gzhImage} 
             alt="公众号二维码" 
             className="w-full h-full object-contain rounded-lg"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.onerror = null; 
-              target.style.display = 'none';
-              // Display what the browser resolved the src to
-              const resolvedSrc = target.src;
-              target.parentElement!.innerHTML = `
-                <div class="text-center p-2 flex flex-col items-center justify-center h-full">
-                  <p class="text-sm font-bold text-red-500 mb-1">图片加载失败</p>
-                  <p class="text-[10px] text-gray-400 mb-2 break-all line-clamp-2">${resolvedSrc}</p>
-                  <div class="text-xs text-left bg-gray-50 p-2 rounded border border-gray-200 w-full">
-                    <p class="font-semibold text-gray-700">请检查:</p>
-                    <ol class="list-decimal pl-4 mt-1 space-y-1 text-gray-600">
-                      <li>文件名为 <b>gzh.jpg</b></li>
-                      <li>文件与 <b>index.html</b> 同级</li>
-                    </ol>
-                  </div>
-                </div>`;
-            }}
           />
         </div>
       </div>

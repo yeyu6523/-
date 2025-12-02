@@ -1,0 +1,16 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="white"/>
+  <!-- 二维码背景 -->
+  <rect x="20" y="20" width="160" height="160" fill="black"/>
+  <!-- 定位图案 -->
+  <rect x="30" y="30" width="40" height="40" fill="white"/>
+  <rect x="35" y="35" width="30" height="30" fill="black"/>
+  <rect x="130" y="30" width="40" height="40" fill="white"/>
+  <rect x="135" y="35" width="30" height="30" fill="black"/>
+  <rect x="30" y="130" width="40" height="40" fill="white"/>
+  <rect x="35" y="135" width="30" height="30" fill="black"/>
+  <!-- 中心logo区域 -->
+  <rect x="80" y="80" width="40" height="40" fill="white"/>
+  <text x="100" y="105" font-size="8" text-anchor="middle" fill="black">数媒</text>
+  <text x="100" y="115" font-size="8" text-anchor="middle" fill="black">1班</text>
+</svg>

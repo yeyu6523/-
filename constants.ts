@@ -1,7 +1,6 @@
-import { Resource, ResourceType, BlogPost, ForumTopic } from './types';
+import { Resource, ResourceType, ForumTopic } from './types';
 
 export const CLASS_NAME = "数字媒体技术1班";
-export const WECHAT_ID = "class24_dmt_1";
 export const SCHOOL_NAME = "信息科学学院";
 
 export const CATEGORIES = ['全部', '数据结构', '数学', '信号与系统', '数据库', '数字媒体', '游戏开发', '视觉设计', '其他'];
@@ -99,7 +98,5 @@ export const MOCK_RESOURCES: Resource[] = [
     addedBy: '管理员'
   }
 ];
-
-export const MOCK_POSTS: BlogPost[] = [];
 
 export const MOCK_FORUM_TOPICS: ForumTopic[] = [];
